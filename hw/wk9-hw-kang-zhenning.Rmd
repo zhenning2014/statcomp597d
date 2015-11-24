@@ -1,0 +1,113 @@
+---
+title: "wk9-homework-kang-zhenning"
+author: "Zhenning Kang"
+date: "November 17, 2015"
+output: html_document
+---
+
+
+
+
+#### 1. Initial GitHub workflow
+
+a. Pat yourselves on the back if you were able to "fork", then "clone" this repo. Maybe massage your brain, too.
+
+b. Re-save this file with your last and first name as well as altering the title of this file.
+
+#### Tips for creating functions
+
+*Use the least possible number of steps. Work line by line, printing out each value as you create the function. Trying to create a function that will solve the whole problem will typically lead to long debugging times because you will not know where you made the mistake.*
+
+#### 2. if-then-else
+Create a function `is.a.number()` that takes a single parameter `X` and returns `"Is a number"` if it is a number, `"Is NA"` if it is an `NA` value, and `"I have no clue"` if it is neither a number nor an `NA` value. Use the `is.na()` and `is.numeric()` functions.
+
+```{r}
+is.a.number <-function(x) {
+        if(is.numeric(x) == TRUE){
+                print("Is a number")
+        }else if(is.na(x) == TRUE){
+                print("Is NA")
+        }else {
+                print("I have no clue")
+        }
+}
+
+is.a.number(1)
+is.a.number(NA)
+is.a.number("bus")
+```
+
+#### 3. primes 
+Create a function that when inputting a single prime number between 3 and 100, it will output a `TRUE` or `FALSE` in a `message()`. Insert an error message as if somebody were to insert a number less than 3, greater than 100, or a non-numeric character. (*Please don't insert all of the prime numbers between 3 and 100 into the function...*)
+
+```{r}
+prime3to100 <- function(x) {
+        require(numbers)
+        if(x > 100 | x < 3 | class(x) != "numeric"){
+                stop("Please insert a number between 3 and 100.")
+        }else if(isPrime(x) == TRUE) {
+                message("TRUE")
+        }else {
+                message("FAlSE")
+        }
+
+}
+prime3to100(7)
+prime3to100(99)
+prime3to100(2)
+prime3to100(101)
+prime3to100("a")
+```
+
+
+#### 4. ggplot2
+
+a. Using `ggplot2`, create a function that when inputting a single continuous variable, it will print out a histogram. Include arguments to alter the theme, x-variable label, a title, and a `TRUE` or `FALSE` option to create a density plot.
+
+```{r}
+one_hist <- function(x, title, xlab, density = FALSE...){
+  require(ggplot2)
+  hist <- ggplot(x, ...)
+  + geom_histogram()
+  + theme_mychoice()
+  + ggtitle("title")
+  + xlab("xlab")
+  if(density == FALSE){
+    print(hist)  
+  } else{
+    new <- hist + geom_density()
+    print(new)
+  }
+}
+```
+
+b. Similarly, create a function that when inputting two continuous variables, it will print a scatterplot. Additionally, in the console, print the mean and variance of the two variables as well as the coefficient value of the specified x-variable.  Include arguments to alter the title and a `TRUE` or `FALSE` option to include a smoothing method of *lm* aka a simple linear model line in/on the scatterplot.
+
+```{r}
+describe = function(x, y){
+  m1 <- mean(x, na.rm = T)
+  m2 <- mean(y, na.rm = T)
+  v1 <- range(x, na.rm = T)
+  v2 <- range(y, na.rm = T)
+  co <- lm(x ~ y)
+  out = c(m1, m2, v1, v2, co)
+  names(out) = c("x-mean","y-mean", "x-variance", "y-variance", "coefficient")
+}
+
+
+two_plot <- function(x, y, ...){
+  require(ggplot2)
+  scat <- qplot(x, y)
+  + geom_point()
+  + labs(title="My headline text")
+  + geom_smooth(model=lm)
+  print(scat)
+  decribe(x,y)
+}
+```
+
+#### 5. Remaining GitHub workflow
+
+a. Now finish off the workflow of submitting your homework by "committing" the changes locally, "pushing" the changes to YOUR online repo, and finally creating a pull request. 
+
+b. Pat yourselves on the back, again.  You deserved it.
